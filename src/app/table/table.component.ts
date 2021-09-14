@@ -10,6 +10,7 @@ import { SendService } from './../service/send.service';
 export class TableComponent implements OnInit {
   transferencias: Send[] = [];
   exclude!: Send;
+  dropEdit: boolean = false;
   constructor(private sendData: SendService) { }
 
   ngOnInit(): void {
@@ -24,9 +25,6 @@ export class TableComponent implements OnInit {
       (error) => console.log(error)
     )
   }
-  // delete():void {
-  //   this.sendData.delData(transferencia.id: Send[]).subscribe();
-  // }
   confirmDelete(open: Send) {
     open.drop = !open.drop;
   }
@@ -36,5 +34,19 @@ export class TableComponent implements OnInit {
   exclusion(id: number) {
     this.sendData.delData(id).subscribe();
     window.location.reload();
+  }
+  edit() {
+    this.dropEdit = true;
+  }
+  confirmEdit(id: number) {
+    this.sendData.editData(id).subscribe(id => {
+
+    });
+  }
+  save() {
+    window.location.reload();
+  }
+  cancelOne() {
+    this.dropEdit = false;
   }
 }
