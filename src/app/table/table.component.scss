@@ -1,0 +1,17 @@
+.animation {
+    animation-name: avatar;
+    animation-duration: 0.8s;
+}
+@keyframes avatar {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+.card__custom {
+   position: absolute;
+   right: auto;
+   background-color: #fff;
+}

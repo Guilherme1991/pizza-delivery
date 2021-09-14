@@ -1,0 +1,45 @@
+<div class="container my-4">
+    <div class="breadcrumb">
+        <nav aria-label="breadcrumb" class="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Pedidos</li>
+            </ol>
+        </nav>
+    </div>
+    <table class="table table-dark table-striped" *ngIf="transferencias.length > 0; else alertEmpty">
+        <thead>
+            <tr>
+                <td><i class="fa fa-user mr-2"></i> Nome do cliente</td>
+                <td><i class="fa fa-cutlery mr-2"></i> Tipo de pizza</td>
+                <td><i class="fa fa-cutlery mr-2"></i> Excluir</td>
+            </tr>
+        </thead>
+        <tbody class="table-secondary">
+            <tr *ngFor="let transferencia of transferencias">
+                <td>{{transferencia.name }}</td>
+                <td>{{transferencia.pizzaType }}</td>
+                <td>
+                    <button class="btn btn-sm btn-danger" (click)="confirmDelete(transferencia)">Excluir</button>
+                    <div class="card__custom p-2 d-flex mt-1" [ngClass]="{'d-none': !transferencia.drop}">
+                        <a class="btn btn-primary btn-sm" (click)="exclusion(transferencia.id)">Excluir</a>
+                        <a class="btn btn-danger btn-sm mx-1" (click)="cancel(transferencia)">Cancelar</a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div [ngClass]="{'d-none': transferencias.length === 0}">
+        <p><b>Total de {{transferencias.length }} registros.</b></p>
+    </div>
+</div>
+<ng-template #alertEmpty>
+    <div class="container d-flex align-items-center flex-column animation"
+        [ngClass]="{'d-none': transferencias.length > 0}">
+        <h2>No momento o sistema não tem nenhum pedido cadastrado.</h2>
+        <p><u>Cadastre os pedidos dos clientes para aparecerem nessa página</u></p>
+        <div class="alert">
+            <img src="assets/img/avatar.png" alt="Avatar" title="Avatar" />
+        </div>
+    </div>
+</ng-template>
