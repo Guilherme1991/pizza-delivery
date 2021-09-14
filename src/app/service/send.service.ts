@@ -14,22 +14,25 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class SendService {
-  // [x: string]: any;
   constructor(private http: HttpClient) { }
 
   sendTable(nome: string, pizza: string): Observable<Send> {
-    return this.http.post<Send>('http://localhost:3000/transferencia', {
+    return this.http.post<Send>(`${URL}`, {
       name: nome,
       pizzaType: pizza
     }
     )
   }
   getData(): Observable<Send[]> {
-    return this.http.get<Send[]>('http://localhost:3000/transferencia');
+    return this.http.get<Send[]>(`${URL}`);
   }
-  delData(id: number): Observable<any> {
+  delData(id: number): Observable<Send[]> {
     const url = `${URL}/${id}`;
-    return this.http.delete(url);
+    return this.http.delete<Send[]>(url);
+  }
+  editData(id: number): Observable<Send> {
+    const url = `${URL}/${id}`;
+    return this.http.put<Send>(url, id);
   }
 }
 
